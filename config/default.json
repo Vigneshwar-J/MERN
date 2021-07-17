@@ -1,0 +1,4 @@
+{
+    "mongodbURL":"mongodb+srv://Vigneshwar:Viki123@contactkeeper.0kbpc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "jwtSecret": "secret"
+}
