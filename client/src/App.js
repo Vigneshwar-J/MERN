@@ -1,27 +1,45 @@
 import './App.css';
 import React, {Fragment} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import PrivateRoute from './components/routing/PrivateRoute';
 import { Navbar } from './components/layout/Navbar';
 import { Home } from './components/pages/Home';
 import { About } from './components/pages/About';
+import { Register } from './components/auth/Register';
+import { Login } from './components/auth/Login';
+import { Alerts } from './components/layout/Alerts';
+import setAuthToken from './utils.js/SetAuthToken';
 import ContactState from './context/contact/ContactState';
+import AuthState from './context/auth/AuthState';
+import AlertState from './context/alert/AlertState';
+
+
+if(localStorage.getItem('token')) {
+  setAuthToken(localStorage.getItem('token'))
+}
 
 const App = () => {
   return (
+    <AuthState>
     <ContactState> 
+    <AlertState>
          <Router> 
          <Fragment>
       <Navbar title='Contact Keeper' icon='fas fa-id-card-alt' />
       <div className='container'>
+        <Alerts />
         <Switch>
-          <Route exact path='/' component={Home} />
+          <PrivateRoute exact path='/' component={Home} />
           <Route exact path='/about' component={About} />
+          <Route exact path='/register' component={Register} />
+          <Route exact path='/login' component={Login} />
         </Switch>
       </div>
     </Fragment>
     </Router>
-    </ContactState>
-
+    </AlertState>
+    </ContactState> 
+    </AuthState>
   );
 }
 
